@@ -5,10 +5,10 @@ operation:
   config:
     stopDeploy: false
     storageLocationSearchText: ""
-    viewoption: single view
+    viewoption: multi source view
   database: ""
   deployEnabled: true
-  description: Customer data as defined by TPC-H
+  description: Description as expected?
   isMultisource: false
   locationName: TARGET
   materializationType: view
@@ -109,7 +109,8 @@ operation:
           stepCounter: 0c237626-82f2-41b3-adce-1bcecbc10333
         config: {}
         dataType: VARCHAR(10)
-        description: ""
+        description: |
+          - This column categorizes customers based on their market segment.
         name: C_MKTSEGMENT
         nullable: true
         sourceColumnReferences:
@@ -123,7 +124,9 @@ operation:
           stepCounter: 0c237626-82f2-41b3-adce-1bcecbc10333
         config: {}
         dataType: VARCHAR(117)
-        description: ""
+        description: |
+          This column provides additional comments or notes about the customer.
+          datatype.
         name: C_COMMENT
         nullable: true
         sourceColumnReferences:
@@ -134,7 +137,8 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          STG_CUSTOMER: b2689575-2a6e-4292-9f41-d9099dfb7b20
         customSQL:
           customSQL: ""
         dependencies:
