@@ -3,7 +3,7 @@ id: d44e05e9-875b-4840-b159-e296113db1ac
 name: SV_ORDERS
 operation:
   config:
-    stopDeploy: true
+    stopDeploy: false
     storageLocationSearchText: ""
     viewoption: single view
   database: ""
