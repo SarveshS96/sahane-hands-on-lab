@@ -5,7 +5,7 @@ operation:
   config:
     stopDeploy: false
     storageLocationSearchText: ""
-    viewoption: multi source view
+    viewoption: single view
   database: ""
   deployEnabled: true
   description: Description as expected?
