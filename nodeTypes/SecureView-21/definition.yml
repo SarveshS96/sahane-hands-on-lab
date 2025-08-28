@@ -1,0 +1,70 @@
+fileVersion: 1
+id: "21"
+isDisabled: false
+metadata:
+  defaultStorageLocation: null
+  error: null
+  nodeMetadataSpec: |-
+    capitalized: Secure View
+
+    short: SV
+
+    plural: SV
+
+    tagColor: '#ff8fa3'
+     
+    deployStrategy: advanced
+     
+    config:
+     
+    - groupName: Secure View Options
+     
+      items:
+
+      - type: toggleButton
+
+        displayName: 'Stop Deployment'
+
+        attributeName: 'stopDeploy'
+
+        default: false
+
+        isRequired: false
+     
+      - type: materializationSelector
+
+        default: view
+
+        options:
+
+        - view
+
+        isRequired: true
+     
+      - type: dropdownSelector
+
+        displayName: 'Create View Options'
+
+        attributeName: 'viewoption'
+
+        default: 'single view'     
+
+        options:
+
+        - 'single view'
+
+        - 'multi source view'
+
+        isRequired: true
+     
+      - displayName: Coalesce Source Starts With (Schema Level)
+
+        attributeName: storageLocationSearchText
+
+        type: textBox
+
+        isRequired: false
+     
+     
+name: Secure View
+type: NodeType
