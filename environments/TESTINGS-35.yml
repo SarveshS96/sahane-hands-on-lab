@@ -2,8 +2,8 @@ fileVersion: 1
 id: "35"
 mappingDefinitions:
   SRC:
-    database: SARVESH_DB
-    schema: DEV
+    database: SNOWFLAKE_SAMPLE_DATA
+    schema: TPCH_SF1
   TARGET:
     database: SARVESH_DB
     schema: TEST

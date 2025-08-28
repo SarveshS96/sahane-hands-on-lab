@@ -1,0 +1,103 @@
+fileVersion: 1
+id: "1"
+macroString: |-
+  {#-- This block of code is used for Advanced Deployments #}
+   
+  {%- macro ignore_column_attrs(columns) -%}
+   
+      {% set filteredColumns = [] %}
+
+      {% for col in currentColumns %}
+
+          {% set filteredCol = {} %}
+
+          {% for key, value in col.items() %}
+
+              {% if key in ['id','name','dataType','description','transform','sourceColumns'] %}
+
+                  {% set _ = filteredCol.update({key: value}) %}
+
+              {% endif %}
+
+          {% endfor %}
+
+          {% set _ = filteredColumns.append(filteredCol) %}
+
+      {% endfor %}
+   
+      {{ filteredColumns }}
+   
+  {%- endmacro %}
+   
+  {#-- This block of code is used to alter the search term for nodes that are Multi-Source enabled #}
+   
+  {%- macro get_search_term(is_eu, search_text) -%}
+   
+      {% if is_eu == 1 %}  
+
+          {% set search_term = 'EU_' ~ search_text %} 
+
+      {% else %}                      
+
+          {% set search_term = search_text %}
+
+      {% endif %}
+   
+      {{ search_term }}
+   
+  {%- endmacro %}
+   
+  {#-- This block of code is used to filter storage locations by the search term condition #}
+   
+  {%- macro filter_storage_loc(node, search_text) -%}
+   
+      {% set storage_locations = [] %}
+
+      {% for src in node.storageLocations %}
+
+          {% if src.name.startswith(search_text | trim) and src.schema not in ('PX_DIRECTORYDB','PUBLIC') %}
+
+              {% set storage_locations = storage_locations.append(src) %}
+
+          {% endif %}
+
+      {% endfor %}
+   
+      {{ storage_locations }}
+   
+  {%- endmacro %}
+   
+  {#-- This block of code is used to capture a nodes source dependencies and returns a list #}
+   
+  {%- macro get_node_source_list(node_source) -%}
+   
+      {% set sources = [] %}           
+
+      {% for n in node_source.dependencies %}
+
+          {% if n.node.nodeType == 'Source' %}
+
+              {% set sources = sources.append(n.node.location.name) %}
+
+          {% endif %}
+
+      {% endfor %}
+
+      {% set sources = (sources | unique | list) %}
+   
+      {{ sources }}
+   
+  {%- endmacro %}
+   
+   
+  {%- macro get_location_schema(storage_locations, storage_location_name) -%}
+
+      {% set sl = (storage_locations | selectattr("name", "equalto", storage_location_name) | list)[0]%}
+
+      {{ sl.database + "." + sl.schema }}
+
+  {%- endmacro -%}
+   
+   
+name: macro
+type: Macro

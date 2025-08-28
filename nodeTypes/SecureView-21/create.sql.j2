@@ -1,0 +1,140 @@
+{% if currentState is defined %}
+ {% set currName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
+ {% set currentStorageLocations = currentState.storageLocations %}
+ {% set currConfig = currentState.config %}
+ {% set currColumns = currentState.columns %}
+ {% set currSources = currentState.sources %}
+{% endif %}
+ 
+{% if desiredState is defined %}
+ {% set desiredName = ref_no_link(desiredState.node.location.name, desiredState.node.name) %}
+ {% set desiredStorageLocations = desiredState.storageLocations %}
+ {% set desiredConfig = desiredState.config %}
+ {% set desiredColumns = desiredState.columns %}
+ {% set desiredSources = desiredState.sources %}
+ {% set orig_search_term = desiredConfig.storageLocationSearchText %}
+{% endif %}
+ 
+{% set search_term = '' %}
+{% set currLocations = [] %}
+{% set desiredLocations = [] %}
+ 
+{% if desiredState is defined %}
+ {% set search_term = get_search_term(desiredState.parameters.is_eu, desiredConfig.storageLocationSearchText) %}
+ {% set desiredLocations = filter_storage_loc(desiredState, search_term) %}
+{% endif %}
+ 
+{% if currentState is defined %}
+ {% set currLocations = filter_storage_loc(currentState, search_term) %}
+{% endif %}
+ 
+{% set newSecureView = (currentState is not defined and desiredState is defined) %}
+{% set persistedSecureView = (currentState is defined and desiredState is defined) %}
+ 
+{% set secureViewChanged = false %}
+{% if persistedSecureView %}
+ 
+ {% set currCols = ignore_column_attrs(currColumns) %}
+ {% set desiredCols = ignore_column_attrs(desiredColumns) %}
+ 
+ {% set secureViewChanged =  ( 
+   (currName != desiredName) or 
+   (currConfig != desiredConfig) or
+   (currCols != desiredCols) or
+   (currSources != desiredSources) or
+   (desiredConfig.viewoption == 'multi source view' 
+     and currLocations != desiredLocations )
+ ) %}
+ 
+{% endif %}
+ 
+{% set createSecureView = (
+ newSecureView or 
+ ( persistedSecureView and desiredLocations != [] and secureViewChanged )
+) %}
+ 
+{% set dropSecureView = (
+ (currentState is defined and desiredState is not defined) or
+ (persistedSecureView and currName != desiredName)
+) %}
+ 
+{% set stopDeployment = (
+ (currentState is defined and not currConfig.stopDeploy) or 
+ (desiredState is defined and not desiredConfig.stopDeploy)
+) %}
+ 
+{% if stopDeployment %}
+ 
+ {% if dropSecureView %}
+ 
+   {{ stage('Drop ' + currName + ' Secure View' | string) }}
+     
+     DROP VIEW IF EXISTS {{ currName }};
+ 
+ {% endif %}
+ 
+ {% if createSecureView %}
+ 
+   {{ stage('Create ' + desiredName + ' Secure View' | string) }}
+     
+     CREATE OR REPLACE SECURE VIEW {{ desiredName }}
+     (
+     {% for col in desiredState.columns %} "{{ col.name }}"
+       {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+       {%- if not loop.last -%}, {% endif %}
+     {% endfor %}
+     ) 
+     {%- if desiredState.node.description | length > 0 %} 
+     COMMENT = '{{ desiredState.node.description | escape }}' 
+     {% endif %}
+     
+     AS
+ 
+     {% if desiredConfig.viewoption == 'single view' %}
+ 
+       SELECT 
+       {% for source in desiredState.sources %}
+         {% for col in source.columns %} {{ get_source_transform(col) }} AS "{{ col.name }}"
+           {%- if not loop.last -%}, {% endif %}
+         {% endfor %}
+         {{ source.join }}
+       {% endfor %}
+ 
+     {% elif desiredConfig.viewoption == 'multi source view' %}
+ 
+       {% for src in desiredState.storageLocations if (src.name).startswith(search_term | trim) %}
+ 
+         {% if src.schema not in ('PX_DIRECTORYDB','PUBLIC') %}
+ 
+           SELECT 
+           {% for source in desiredState.sources %}
+             {% for col in source.columns %} {{ get_source_transform(col) }} AS "{{ col.name }}"
+               {%- if not loop.last -%}, {% endif %}
+             {% endfor %}
+             
+             {% with %}
+ 
+               {% set sqlJoinText = source.join %}              
+               {% set sourceList = get_node_source_list(source) %}   
+ 
+               {% for s in desiredState.storageLocations if (s.name).startswith(orig_search_term | trim) %}
+                 {% if s.name in sourceList and s.schema not in ('PX_DIRECTORYDB','PUBLIC') %}
+                   {{ sqlJoinText.replace(s.name, src.name) }}
+                 {% endif %}
+               {% endfor %}
+         
+             {% endwith %}
+ 
+           {% endfor %}  
+         
+           {%- if not loop.last -%} UNION ALL {% endif %} 
+ 
+         {% endif %}
+ 
+       {% endfor %}
+ 
+     {% endif %}
+ {% endif %}
+{% endif %}
+ 
+ 
