@@ -4,7 +4,7 @@ name: DIM_CUSTOMERS
 operation:
   config:
     postSQL: ""
-    preSQL: ""
+    preSQL: alter session set ERROR_ON_NONDETERMINISTIC_MERGE = true;
     testsEnabled: true
   database: ""
   deployEnabled: true
