@@ -1,0 +1,175 @@
+fileVersion: 1
+id: d44e05e9-875b-4840-b159-e296113db1ac
+name: SV_ORDERS
+operation:
+  config:
+    stopDeploy: true
+    storageLocationSearchText: ""
+    viewoption: single view
+  database: ""
+  deployEnabled: true
+  description: Orders data as defined by client
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d89cffde-ce94-48fd-af46-190521b3c5b8
+          stepCounter: d44e05e9-875b-4840-b159-e296113db1ac
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: O_ORDERKEY
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: dd82d97a-b050-4690-89db-a5cec2eb99b8
+                stepCounter: 94a206e1-391a-4e6f-897d-2409c5c6eafa
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c6c617a3-2680-4c78-aa9a-fea8f3cc03fb
+          stepCounter: d44e05e9-875b-4840-b159-e296113db1ac
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: O_CUSTKEY
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5c98baa6-11d3-486f-9f8a-a8ffcf6b08cf
+                stepCounter: 94a206e1-391a-4e6f-897d-2409c5c6eafa
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f4b3ad37-5bb9-4551-bf0b-afab0d90e99f
+          stepCounter: d44e05e9-875b-4840-b159-e296113db1ac
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: O_ORDERSTATUS
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a8a342f6-e0eb-48f7-87cd-19af9ab35fde
+                stepCounter: 94a206e1-391a-4e6f-897d-2409c5c6eafa
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5a7480ee-dd21-404c-8fcb-f225a207de27
+          stepCounter: d44e05e9-875b-4840-b159-e296113db1ac
+        config: {}
+        dataType: NUMBER(12,2)
+        description: ""
+        name: O_TOTALPRICE
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 8d0c76d2-0253-4195-81c2-a71d2ae9a828
+                stepCounter: 94a206e1-391a-4e6f-897d-2409c5c6eafa
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 182ae2cd-af38-463c-b469-9a4f1c510a58
+          stepCounter: d44e05e9-875b-4840-b159-e296113db1ac
+        config: {}
+        dataType: DATE
+        description: ""
+        name: O_ORDERDATE
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 90c48237-1ce6-46e8-a9dc-cd490633fa2f
+                stepCounter: 94a206e1-391a-4e6f-897d-2409c5c6eafa
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9645e27d-9892-4dae-8ffa-755e00cbfba3
+          stepCounter: d44e05e9-875b-4840-b159-e296113db1ac
+        config: {}
+        dataType: VARCHAR(15)
+        description: ""
+        name: O_ORDERPRIORITY
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e73137fb-804a-4fbe-9281-bbea360274eb
+                stepCounter: 94a206e1-391a-4e6f-897d-2409c5c6eafa
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0282efa1-8de5-4722-b718-94f424bb25a1
+          stepCounter: d44e05e9-875b-4840-b159-e296113db1ac
+        config: {}
+        dataType: VARCHAR(15)
+        description: |-
+          - This column identifies the clerk who handled the order.
+          - It is sourced directly from the `O_CLERK` column in the `STG_ORDERS` stage table.
+          - The `O_CLERK` column is useful for performance tracking, workload distribution, and identifying top-performing employees.
+          - It is used in downstream processes for performance evaluation and optimizing clerk assignments.
+        name: O_CLERK
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 4ccf1113-1726-4af3-98e9-1b31e0e54e72
+                stepCounter: 94a206e1-391a-4e6f-897d-2409c5c6eafa
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: bbf04877-21e2-4a04-a8c6-f9cdec309d37
+          stepCounter: d44e05e9-875b-4840-b159-e296113db1ac
+        config: {}
+        dataType: NUMBER(38,0)
+        description: |-
+          - This column indicates the shipping priority of the order.
+          - It is sourced directly from the `O_SHIPPRIORITY` column in the `STG_ORDERS` stage table.
+          - The `O_SHIPPRIORITY` column helps in managing shipping logistics and meeting delivery deadlines.
+          - It is used in downstream processes for optimizing shipping routes and improving delivery times.
+        name: O_SHIPPRIORITY
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 6e9fef33-54e5-414d-bad9-365aecebf6d6
+                stepCounter: 94a206e1-391a-4e6f-897d-2409c5c6eafa
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1526b0a5-0b67-4f97-838a-2f56498e41d6
+          stepCounter: d44e05e9-875b-4840-b159-e296113db1ac
+        config: {}
+        dataType: VARCHAR(79)
+        description: |-
+          - This column contains descriptive comments related to the order.
+          - It is sourced directly from the `O_COMMENT` column in the `STG_ORDERS` stage table.
+          - The `O_COMMENT` column provides additional context and details about the order, which is useful for issue resolution and customer service.
+          - It is used in downstream processes for customer support and order clarification.
+        name: O_COMMENT
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 0db28894-197f-43c6-b4bb-e9f4e98fa73e
+                stepCounter: 94a206e1-391a-4e6f-897d-2409c5c6eafa
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: STG_ORDERS
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'STG_ORDERS') }} "STG_ORDERS"
+        name: SV_ORDERS
+        noLinkRefs: []
+  name: SV_ORDERS
+  overrideSQL: false
+  schema: ""
+  sqlType: "21"
+  type: sql
+  version: 1
+type: Node
