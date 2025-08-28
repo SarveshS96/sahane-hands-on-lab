@@ -1,0 +1,11 @@
+fileVersion: 1
+id: "35"
+mappingDefinitions:
+  SRC:
+    database: SARVESH_DB
+    schema: DEV
+  TARGET:
+    database: SARVESH_DB
+    schema: TEST
+name: TESTINGS
+type: Environment

@@ -1,0 +1,212 @@
+fileVersion: 1
+id: 3b784bb9-150a-424c-a7ba-dafc5d5d4c56
+name: DIM_CUSTOMERS
+operation:
+  config:
+    postSQL: ""
+    preSQL: ""
+    testsEnabled: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 304087bc-d736-41b0-99f2-376912580c63
+          stepCounter: 3b784bb9-150a-424c-a7ba-dafc5d5d4c56
+        config: {}
+        dataType: NUMBER
+        defaultValue: ""
+        description: ""
+        isSurrogateKey: true
+        name: DIM_CUSTOMERS_KEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 30a54c95-617d-4070-8526-695e41530d5d
+          stepCounter: 3b784bb9-150a-424c-a7ba-dafc5d5d4c56
+        config: {}
+        dataType: NUMBER(38,0)
+        description: |-
+          - This column represents the unique identifier for each customer. 
+          - It is sourced directly from the 'CUSTOMERID' column in the 'CUSTOMERS' table within the SRC database.
+          - The 'CUSTOMERID' serves as a crucial link across various tables, facilitating customer-centric analysis and reporting, enabling the creation of customer-related metrics.
+          - It is a Number with a precision of 38 and a scale of 0.
+        isBusinessKey: true
+        name: CUSTOMERID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 552a4970-c827-4a8f-80d6-5766370543ff
+                stepCounter: df178eae-64d2-4af2-acf5-74d37f6225ee
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e4a11e46-5161-48a6-98a0-f65eb74d6ed9
+          stepCounter: 3b784bb9-150a-424c-a7ba-dafc5d5d4c56
+        config: {}
+        dataType: VARCHAR(50)
+        description: |-
+          - This column holds the name of the customer.
+          - It originates from the 'CUSTOMERNAME' column of the 'CUSTOMERS' table in the SRC data source.
+          - The 'CUSTOMERNAME' is used in reports and dashboards to identify customers, and helps derive insights of customer behavior and preferences.
+          - It is a Varchar with a maximum length of 50 characters.
+        name: CUSTOMERNAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 49b70af3-b67d-4fc8-be82-42f36a378142
+                stepCounter: df178eae-64d2-4af2-acf5-74d37f6225ee
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6fbfc30c-cf98-4061-bc4a-1aea890ea396
+          stepCounter: 3b784bb9-150a-424c-a7ba-dafc5d5d4c56
+        config: {}
+        dataType: VARCHAR(50)
+        description: |-
+          - This column stores the address of the customer.
+          - It is populated from the 'ADDRESS' column in the 'CUSTOMERS' table of the SRC data source.
+          - The 'ADDRESS' is valuable for geographic analysis, targeted marketing campaigns, and understanding customer distribution.
+          - It is a Varchar with a maximum length of 50 characters.
+        isChangeTracking: true
+        name: ADDRESS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ce5a1a83-a1c3-4a27-9b13-49720806c4f2
+                stepCounter: df178eae-64d2-4af2-acf5-74d37f6225ee
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: eacf05ab-e5f9-49b7-a343-0dd711b77206
+          stepCounter: 3b784bb9-150a-424c-a7ba-dafc5d5d4c56
+        config: {}
+        dataType: NUMBER
+        defaultValue: ""
+        description: ""
+        isSystemVersion: true
+        name: SYSTEM_VERSION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8bf25983-3d6f-41b0-bd59-9cacf21a3f9e
+          stepCounter: 3b784bb9-150a-424c-a7ba-dafc5d5d4c56
+        config: {}
+        dataType: VARCHAR
+        defaultValue: ""
+        description: ""
+        isSystemCurrentFlag: true
+        name: SYSTEM_CURRENT_FLAG
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 42878184-6b6c-4bf1-b203-1182769d3611
+          stepCounter: 3b784bb9-150a-424c-a7ba-dafc5d5d4c56
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemStartDate: true
+        name: SYSTEM_START_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f61394ff-92cc-4f36-a8c4-36310f0b8398
+          stepCounter: 3b784bb9-150a-424c-a7ba-dafc5d5d4c56
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemEndDate: true
+        name: SYSTEM_END_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST('2999-12-31 00:00:00' AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1c0a57a4-2395-46a0-903c-6e53f0034b62
+          stepCounter: 3b784bb9-150a-424c-a7ba-dafc5d5d4c56
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 909b696c-728c-4cbb-bc64-664d9f7a82d3
+          stepCounter: 3b784bb9-150a-424c-a7ba-dafc5d5d4c56
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: STG_CUSTOMERS
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'STG_CUSTOMERS') }} "STG_CUSTOMERS"
+        name: DIM_CUSTOMERS
+        noLinkRefs: []
+  name: DIM_CUSTOMERS
+  overrideSQL: false
+  schema: ""
+  sqlType: Dimension
+  type: sql
+  version: 1
+type: Node

@@ -1,0 +1,93 @@
+fileVersion: 1
+id: df178eae-64d2-4af2-acf5-74d37f6225ee
+name: STG_CUSTOMERS
+operation:
+  config:
+    insertStrategy: INSERT
+    postSQL: ""
+    preSQL: ""
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 552a4970-c827-4a8f-80d6-5766370543ff
+          stepCounter: df178eae-64d2-4af2-acf5-74d37f6225ee
+        config: {}
+        dataType: NUMBER(38,0)
+        description: |-
+          - This column represents the unique identifier for each customer. 
+          - It is sourced directly from the 'CUSTOMERID' column in the 'CUSTOMERS' table within the SRC database.
+          - The 'CUSTOMERID' serves as a crucial link across various tables, facilitating customer-centric analysis and reporting, enabling the creation of customer-related metrics.
+          - It is a Number with a precision of 38 and a scale of 0.
+        name: CUSTOMERID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 36453251-17b1-44f2-ad6b-68520738b8e5
+                stepCounter: 0730ca93-c832-406b-b473-7465baa869d7
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 49b70af3-b67d-4fc8-be82-42f36a378142
+          stepCounter: df178eae-64d2-4af2-acf5-74d37f6225ee
+        config: {}
+        dataType: VARCHAR(50)
+        description: |-
+          - This column holds the name of the customer.
+          - It originates from the 'CUSTOMERNAME' column of the 'CUSTOMERS' table in the SRC data source.
+          - The 'CUSTOMERNAME' is used in reports and dashboards to identify customers, and helps derive insights of customer behavior and preferences.
+          - It is a Varchar with a maximum length of 50 characters.
+        name: CUSTOMERNAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ed6f96aa-674f-4b4a-9595-06ea91b565b5
+                stepCounter: 0730ca93-c832-406b-b473-7465baa869d7
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ce5a1a83-a1c3-4a27-9b13-49720806c4f2
+          stepCounter: df178eae-64d2-4af2-acf5-74d37f6225ee
+        config: {}
+        dataType: VARCHAR(50)
+        description: |-
+          - This column stores the address of the customer.
+          - It is populated from the 'ADDRESS' column in the 'CUSTOMERS' table of the SRC data source.
+          - The 'ADDRESS' is valuable for geographic analysis, targeted marketing campaigns, and understanding customer distribution.
+          - It is a Varchar with a maximum length of 50 characters.
+        name: ADDRESS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d1319d68-00b8-4081-8267-1d7a32344a86
+                stepCounter: 0730ca93-c832-406b-b473-7465baa869d7
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SRC
+            nodeName: CUSTOMERS
+        join:
+          joinCondition: FROM {{ ref('SRC', 'CUSTOMERS') }} "CUSTOMERS"
+        name: STG_CUSTOMERS
+        noLinkRefs: []
+  name: STG_CUSTOMERS
+  overrideSQL: false
+  schema: ""
+  sqlType: Stage
+  type: sql
+  version: 1
+type: Node
