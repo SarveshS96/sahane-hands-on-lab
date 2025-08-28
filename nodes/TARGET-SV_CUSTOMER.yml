@@ -3,7 +3,7 @@ id: 0c237626-82f2-41b3-adce-1bcecbc10333
 name: SV_CUSTOMER
 operation:
   config:
-    stopDeploy: true
+    stopDeploy: false
     storageLocationSearchText: ""
     viewoption: single view
   database: ""
